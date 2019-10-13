@@ -104,7 +104,7 @@ test_data = all_data[start_test:test_end]
 prediction_thismonth_arima = []
 for i in range(start_test,test_end):
     train_data_thismonth = data[0:i]
-    arima_model_thismonth = SARIMAX(train_data_thismonth['Demand'], order=(3,0,2), seasonal_order=(0,1,1,12))
+    arima_model_thismonth = SARIMAX(train_data_thismonth['Demand'], order=(3,0,2), seasonal_order=(0,1,1,12),enforce_stationarity=False,enforce_invertibility=False)
     arima_result_thismonth = arima_model_thismonth.fit(maxiter=200)
     arima_predict = arima_result_thismonth.predict(start = len(train_data_thismonth),end=len(train_data_thismonth), typ="levels").rename("Arima Prediction")
     prediction_thismonth_arima.append(arima_predict[0])
